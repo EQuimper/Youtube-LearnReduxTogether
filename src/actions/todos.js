@@ -1,15 +1,4 @@
-/**
- *
- * SPEC
- *
- * Create a todo
- * List all todos
- * Click for completed todo
- * Delete a todo
- * Deleted all completed todos
- *
- *
- */
+import uuid from 'uuid/v4';
 
 import TodoApi from '../utils/api/todoApi';
 
@@ -23,7 +12,12 @@ export const CREATE_TODO_ERROR = 'CREATE_TODO_ERROR';
 
 
 export const COMPLETED_TODO = 'COMPLETED_TODO';
+
 export const DELETED_TODO = 'DELETED_TODO';
+export const DELETED_TODO_SUCCESS = 'DELETED_TODO_SUCCESS';
+export const DELETED_TODO_ERROR = 'DELETED_TODO_ERROR';
+
+
 export const DELETED_ALL_COMPLETED_TODO = 'DELETED_ALL_COMPLETED_TODO';
 
 export function fetchTodos() {
@@ -43,16 +37,24 @@ export function fetchTodos() {
 
 export function createTodo(text) {
   return async (dispatch) => {
-    dispatch({ type: CREATE_TODO });
+
+    const todo = {
+      text,
+      id: uuid(),
+      completed: false
+    }
+
+    dispatch({ type: CREATE_TODO, todo });
 
     try {
-      const data = await TodoApi.createTodo({ text });
+      await TodoApi.createTodo(todo);
 
-      return dispatch({ type: CREATE_TODO_SUCCESS, data });
+      return dispatch({ type: CREATE_TODO_SUCCESS });
     } catch (error) {
       return dispatch({
         type: CREATE_TODO_ERROR,
         error,
+        todo
       });
     }
   }
@@ -66,9 +68,21 @@ export function completedTodo(id) {
 }
 
 export function deletedTodo(id) {
-  return {
-    type: DELETED_TODO,
-    id
+  return async (dispatch, getState) => {
+    const todo = getState().todos.data.filter(todo => todo.id === id)[0];
+
+    dispatch({ type: DELETED_TODO, id });
+
+    try {
+      await TodoApi.deletedTodo(id);
+      return dispatch({ type: DELETED_TODO_SUCCESS });
+    } catch (error) {
+      return dispatch({
+        type: DELETED_TODO_ERROR,
+        error,
+        todo,
+      });
+    }
   }
 }
 

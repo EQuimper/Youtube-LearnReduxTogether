@@ -57,7 +57,11 @@ class App extends Component {
         </form>
         <br />
         {this.props.todos.data.map(todo => (
-          <Todo {...todo} key={todo.id} />
+          <Todo
+            {...todo}
+            key={todo.id}
+            handleDeleted={() => this._handleDeleted(todo.id)}
+          />
         ))}
         <br />
         <hr />

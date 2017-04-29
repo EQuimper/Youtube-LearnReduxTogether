@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Todo({ text, completed }) {
+export default function Todo({ text, completed, handleDeleted }) {
   return (
     <div>
       {text}
@@ -8,7 +8,7 @@ export default function Todo({ text, completed }) {
         type="checkbox"
         value={completed}
       />
-      <button>Delete Me</button>
+      <button onClick={handleDeleted}>Delete Me</button>
     </div>
   )
 }

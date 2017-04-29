@@ -1,5 +1,4 @@
 import axios from 'axios';
-import uuid from 'uuid/v4';
 
 axios.defaults.baseURL = 'http://localhost:8080';
 
@@ -20,15 +19,19 @@ class TodoApi {
 
   async createTodo(args) {
     try {
-      const { data } = await axios.post(this.path, {
-        text: args.text,
-        id: uuid(),
-        completed: false,
-      });
+      const { data } = await axios.post(this.path, args);
 
       return data;
     } catch (e) {
-      return e;
+      throw e;
+    }
+  }
+
+  async deletedTodo(id) {
+    try {
+      return await axios.delete(`${this.path}/${id}`);
+    } catch (e) {
+      throw e;
     }
   }
 }

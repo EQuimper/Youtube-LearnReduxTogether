@@ -34,5 +34,16 @@
 
 # Part 6
 
-- Completed a todo in api
+[Video](https://youtu.be/aZ7O6_IpS6U)
+
+- Optimistic ui
+
+# Part 7
+
+[Video](https://youtu.be/05AxtFFx9Ko)
+
 - Delete a todo in api
+
+# Part 8
+
+- Completed a todo in api
