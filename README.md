@@ -1,3 +1,9 @@
+# LearnReduxTogether
+
+This is a simple tutorial where I show how use Redux with React.
+
+I cover the crud action and the ajax too. + I also talk about Optimistic-Ui.
+
 # Part 1
 
 [Video](https://youtu.be/8GLEuP8lzt8)
