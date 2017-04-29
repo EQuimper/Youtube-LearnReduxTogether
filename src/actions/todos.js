@@ -12,6 +12,8 @@ export const CREATE_TODO_ERROR = 'CREATE_TODO_ERROR';
 
 
 export const COMPLETED_TODO = 'COMPLETED_TODO';
+export const COMPLETED_TODO_SUCCESS = 'COMPLETED_TODO_SUCCESS';
+export const COMPLETED_TODO_ERROR = 'COMPLETED_TODO_ERROR';
 
 export const DELETED_TODO = 'DELETED_TODO';
 export const DELETED_TODO_SUCCESS = 'DELETED_TODO_SUCCESS';
@@ -61,9 +63,20 @@ export function createTodo(text) {
 }
 
 export function completedTodo(id) {
-  return {
-    type: COMPLETED_TODO,
-    id
+  return async (dispatch, getState) => {
+    await dispatch({ type: COMPLETED_TODO, id });
+    const todo = getState().todos.data.filter(todo => todo.id === id)[0];
+
+    try {
+      await TodoApi.completedTodo(todo);
+      return dispatch({ type: COMPLETED_TODO_SUCCESS });
+    } catch (error) {
+      return dispatch({
+        type: COMPLETED_TODO_ERROR,
+        error,
+        id
+      });
+    }
   }
 }
 

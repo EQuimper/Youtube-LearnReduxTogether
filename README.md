@@ -52,4 +52,6 @@ I cover the crud action and the ajax too. + I also talk about Optimistic-Ui.
 
 # Part 8
 
+[Video](https://youtu.be/vkgh327Al9s)
+
 - Completed a todo in api

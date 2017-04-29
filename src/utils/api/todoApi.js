@@ -34,6 +34,14 @@ class TodoApi {
       throw e;
     }
   }
+
+  async completedTodo(todo) {
+    try {
+      return await axios.put(`${this.path}/${todo.id}`, todo);
+    } catch(e) {
+      throw e;
+    }
+  }
 }
 
 export default new TodoApi();

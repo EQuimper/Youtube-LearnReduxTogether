@@ -61,6 +61,7 @@ class App extends Component {
             {...todo}
             key={todo.id}
             handleDeleted={() => this._handleDeleted(todo.id)}
+            handleCompleted={() => this._handleCompleted(todo.id)}
           />
         ))}
         <br />
